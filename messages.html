@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages - Ma Garde-Robe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
+
+  <script defer src="messages.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-6 bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">💬 Messages</h1>
+  </header>
+  <button id="toggleDark" class="absolute top-4 right-4 text-gray-500 dark:text-yellow-300">
+  🌙
+  </button>
+
+  <main class="p-4 max-w-md mx-auto space-y-4">
+
+    <!-- Liste des conversations -->
+    <div id="conversations" class="flex gap-2 overflow-x-auto">
+      <button data-user="Emma" class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border shadow text-sm">Emma</button>
+      <button data-user="Lucas" class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border shadow text-sm">Lucas</button>
+      <button data-user="Sophie" class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border shadow text-sm">Sophie</button>
+    </div>
+
+    <!-- Zone de chat -->
+    <div id="chatBox" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+      <h2 id="chatUser" class="text-lg font-semibold text-gray-700 dark:bg-gray-800 dark:text-white mb-3">Sélectionnez un contact</h2>
+
+      <div id="messagesList" class="space-y-2 mb-3 min-h-[100px] text-sm text-gray-800">
+        <!-- Messages ici -->
+      </div>
+
+      <form id="messageForm" class="hidden flex gap-2">
+        <input type="text" id="messageInput" placeholder="Votre message..."
+          class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+          Envoyer
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- Navigation mobile -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t shadow-md flex justify-around text-sm">
+    <a href="index.html" class="flex flex-col items-center text-gray-500 py-2">
+      <span class="text-xl">🏠</span><small>Accueil</small>
+    </a>
+    <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🔍</span><small>Recherche</small>
+    </a>
+    <a href="messages.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+      <span class="text-xl">💬</span><small>Messages</small>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">👤</span><small>Profil</small>
+    </a>
+  </nav>
+
+</body>
+</html>

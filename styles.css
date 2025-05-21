@@ -1,35 +1,3 @@
-body {
-  font-family: sans-serif;
-  padding: 20px;
-  background-color: #f4f4f4;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-#gardeRobe {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
 .vetement {
-  background: white;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 150px;
-  text-align: center;
+  break-inside: avoid;
 }
-
-.vetement img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-

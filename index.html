@@ -1,48 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ma Garde-Robe</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
-<body>
-  <main id="app">
-    <h1>Ma Garde-Robe</h1>
-    <form id="addForm">
-      <input type="text" id="nom" placeholder="Nom du vêtement" required>
-      <select id="categorie" required>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">👚 Ma Garde-Robe</h1>
+  </header>
+  <button id="toggleDark" class="absolute top-4 right-4 text-gray-500 dark:text-yellow-300">
+        🌙
+  </button>
+
+  <!-- Formulaire d'ajout -->
+  <main class="max-w-md mx-auto p-4">
+    <form id="addForm" class="bg-white text-gray-800 dark:bg-gray-800 dark:text-white shadow rounded-lg p-4 space-y-4">
+      <input type="text" id="nom" placeholder="Nom du vêtement"
+        class="w-full p-2 border border-gray-300 dark:bg-gray-900 dark:text-white rounded focus:outline-none focus:ring focus:ring-blue-200"
+        required>
+      <input type="text" id="marque" placeholder="Marque"
+      class="w-full p-2 border border-gray-300 dark:bg-gray-900 dark:text-white rounded focus:outline-none focus:ring focus:ring-blue-200"
+      required>
+      <select id="categorie" required
+        class="w-full p-2 border border-gray-300 dark:bg-gray-900 dark:text-white rounded focus:outline-none focus:ring focus:ring-blue-200">
         <option value="">--Catégorie--</option>
+        <option value="Robe">Robe</option>
         <option value="Haut">Haut</option>
         <option value="Bas">Bas</option>
         <option value="Chaussures">Chaussures</option>
         <option value="Accessoire">Accessoire</option>
       </select>
-      <input type="file" id="image" accept="image/*" required>
-      <button type="submit">Ajouter</button>
-    </form>
 
-    <div id="gardeRobe" class="grid"></div>
+      <select id="Saison" required
+        class="w-full p-2 border border-gray-300 dark:bg-gray-900 dark:text-white rounded focus:outline-none focus:ring focus:ring-blue-200">
+        <option value="">--Saison--</option>
+        <option value="Ete">été</option>
+        <option value="Hiver">Hiver</option>
+        <option value="Automne">Automne</option>
+        <option value="Printemps">Printemps</option>
+        <option value="Inter-saison">Inter-saison</option>
+      </select>
+
+      <input type="file" id="image" accept="image/*" required
+        class="w-full p-2 border border-gray-300 rounded bg-white dark:bg-gray-900 dark:text-white file:border-0 file:bg-blue-500 file:text-white file:px-4 file:py-2">
+
+      <button type="submit"
+        class="w-full bg-blue-500 text-white py-2 rounded font-semibold hover:bg-blue-600 transition">
+        Ajouter
+      </button>
+    </form>
   </main>
 
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
-      <span>🏠</span>
-      <small>Accueil</small>
+  <!-- Garde-robe en Masonry Grid -->
+  <section id="gardeRobe" class="columns-3 sm:columns-6 gap-2 p-2">
+
+  <!-- Navigation mobile -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">
+    <a href="index.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+      <span class="text-xl">🏠</span><small>Accueil</small>
     </a>
-    <a href="search.html" class="nav-item">
-      <span>🔍</span>
-      <small>Recherche</small>
+    <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🔍</span><small>Recherche</small>
     </a>
-    <a href="messages.html" class="nav-item">
-      <span>💬</span>
-      <small>Messages</small>
+    <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">💬</span><small>Messages</small>
     </a>
-    <a href="profile.html" class="nav-item">
-      <span>👤</span>
-      <small>Profil</small>
+    <a href="profile.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">👤</span><small>Profil</small>
     </a>
   </nav>
+
 </body>
 </html>

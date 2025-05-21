@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil - Ma Garde-Robe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
+  <script defer src="profile.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">👤 Mon Profil</h1>
+  </header>
+    <button id="toggleDark" class="absolute top-4 right-4 text-gray-500 dark:text-yellow-300">
+        🌙
+      </button>
+  <main class="max-w-md mx-auto p-6 text-center bg-white shadow rounded-lg mt-6 dark:bg-gray-800 text-gray-800 dark:text-white"">
+    <img src="https://via.placeholder.com/100" alt="Photo de profil"
+      class="w-24 h-24 rounded-full mx-auto mb-4 shadow">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white">@utilisateur</h2>
+    <p id="total" class="text-gray-600 mt-2 dark:text-white">Chargement...</p>
+  </main>
+
+  <!-- Navigation mobile -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md flex justify-around text-sm dark:bg-gray-800 text-gray-800 dark:text-white"">
+    <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🏠</span><small>Accueil</small>
+    </a>
+    <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🔍</span><small>Recherche</small>
+    </a>
+    <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">💬</span><small>Messages</small>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+      <span class="text-xl">👤</span><small>Profil</small>
+    </a>
+  </nav>
+
+</body>
+</html>
