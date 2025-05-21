@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ma Garde-Robe</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main id="app">
+    <h1>Ma Garde-Robe</h1>
+    <form id="addForm">
+      <input type="text" id="nom" placeholder="Nom du vêtement" required>
+      <select id="categorie" required>
+        <option value="">--Catégorie--</option>
+        <option value="Haut">Haut</option>
+        <option value="Bas">Bas</option>
+        <option value="Chaussures">Chaussures</option>
+        <option value="Accessoire">Accessoire</option>
+      </select>
+      <input type="file" id="image" accept="image/*" required>
+      <button type="submit">Ajouter</button>
+    </form>
 
+    <div id="gardeRobe" class="grid"></div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span>🏠</span>
+      <small>Accueil</small>
+    </a>
+    <a href="search.html" class="nav-item">
+      <span>🔍</span>
+      <small>Recherche</small>
+    </a>
+    <a href="messages.html" class="nav-item">
+      <span>💬</span>
+      <small>Messages</small>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <span>👤</span>
+      <small>Profil</small>
+    </a>
+  </nav>
+</body>
+</html>
