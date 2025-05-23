@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essayage Virtuel - Ma Garde-Robe</title>
+
+  <!-- Applique le thème sombre si déjà choisi -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+
+  <!-- Ton script d’essayage -->
+  <script defer src="tryon.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+
+  <!-- Header -->
+  <header class="relative text-center py-6 bg-white dark:bg-gray-800 shadow">
+    <a href="profile.html"
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 text-lg">🔙</a>
+    <h1 class="text-2xl font-bold">🎽 Essayage Virtuel</h1>
+  </header>
+
+  <main class="max-w-lg mx-auto p-4 space-y-6">
+
+    <!-- 1️⃣ Sélection du vêtement -->
+    <section>
+      <h2 class="text-lg font-semibold mb-2">Choisissez un vêtement</h2>
+      <div id="wardrobeItems" class="grid grid-cols-3 gap-2">
+        <!-- Injecté par JS -->
+      </div>
+    </section>
+
+    <!-- 2️⃣ Bouton Essayer -->
+    <button id="tryOnBtn"
+      class="w-full bg-blue-500 text-white py-2 rounded font-semibold hover:bg-blue-600 transition">
+      Essayer
+    </button>
+
+    <!-- 3️⃣ Résultat -->
+    <section id="tryOnResult" class="mt-4 text-center">
+      <!-- Affiché par JS -->
+    </section>
+
+  </main>
+
+  <!-- Nav mobile -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 dark:text-white border-t shadow-md flex justify-around text-sm">
+    <a href="index.html"    class="flex flex-col items-center py-2"><span class="text-xl">🏠</span><small>Accueil</small></a>
+    <a href="search.html"   class="flex flex-col items-center py-2"><span class="text-xl">🔍</span><small>Recherche</small></a>
+    <a href="add.html"      class="flex flex-col items-center py-2"><span class="text-xl">➕</span><small>Ajouter</small></a>
+    <a href="messages.html" class="flex flex-col items-center py-2"><span class="text-xl">💬</span><small>Messages</small></a>
+    <a href="profile.html"  class="flex flex-col items-center text-blue-600 py-2"><span class="text-xl">👤</span><small>Profil</small></a>
+  </nav>
+
+</body>
+</html>
