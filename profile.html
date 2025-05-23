@@ -31,10 +31,11 @@
     <!-- Photo de profil -->
     <div class="text-center">
       <label for="photoProfil">
-        <img id="profilePic" src="https://via.placeholder.com/100" alt="Photo de profil" class="w-24 h-24 rounded-full mx-auto mb-4 shadow cursor-pointer object-cover">
+        <img id="profilePic" src="https://via.placeholder.com/100" alt="Photo de profil" class="w-24 h-24 rounded-full mx-auto mb-4 shadow cursor-pointer object-contain">
       </label>
       <input type="file" id="photoProfil" accept="image/*" class="hidden">
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-white">@utilisateur</h2>
+      <h2 id="displayNameText">@Utilisateur</h2>
+      <p id="pseudoText" class="text-gray-600 dark:text-gray-300">@mon_pseudo</p>
       <p id="total" class="text-gray-600 dark:text-gray-300 mt-2">Chargement...</p>
     </div>
 
@@ -54,6 +55,18 @@
       <label class="block">Dos : <input type="file" id="backBody" accept="image/*" class="mt-1 w-full"></label>
       <label class="block">Visage : <input type="file" id="face" accept="image/*" class="mt-1 w-full"></label>
     </section>
+
+        <!-- 4) Essayage Virtuel -->
+    <section class="text-center">
+      <a href="tryon.html"
+         class="inline-block w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+        👗 Essayage Virtuel
+      </a>
+    </section>
+
+
+
+
   </main>
 
   <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">

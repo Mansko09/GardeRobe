@@ -6,6 +6,14 @@ total.textContent = `👕 Tu as ${vetements.length} vêtement(s) enregistré(s).
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  const displayName = localStorage.getItem("displayName") || "Utilisateur";
+  const pseudo      = localStorage.getItem("pseudo")      || "mon_pseudo";
+  const nameEl      = document.getElementById("displayNameText");
+  const pseudoEl    = document.getElementById("pseudoText");
+
+  if (nameEl)   nameEl.textContent   = displayName;
+  if (pseudoEl) pseudoEl.textContent = `@${pseudo}`;
+
   const profilePic = document.getElementById("profilePic");
   const profileInput = document.getElementById("photoProfil");
 
@@ -37,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data) {
       const img = document.createElement("img");
       img.src = data;
-      img.className = "w-full mt-2 rounded shadow object-cover max-h-32";
+      img.className = "w-full mt-2 rounded shadow object-contain max-h-32";
       document.getElementById(imgId).after(img);
     }
   };
@@ -83,3 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
   saveImg(backBody, "backBody");
   saveImg(face, "face");
 });
+
+const photos = [
+  { type: "full",      data: fullBodyData },
+  { type: "upper",     data: upperBodyData },
+  { type: "back",      data: backData },
+  { type: "face",      data: faceData }
+];
+localStorage.setItem("profilePhotos", JSON.stringify(photos));

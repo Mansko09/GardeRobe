@@ -1,4 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // 👤 Gestion du Nom d’utilisateur et du Pseudo
+  const displayNameInput = document.getElementById("displayName");
+  const pseudoInput      = document.getElementById("pseudo");
+
+  // Charge les valeurs existantes
+  if (displayNameInput) {
+    displayNameInput.value = localStorage.getItem("displayName") || "";
+    displayNameInput.addEventListener("input", e => {
+      localStorage.setItem("displayName", e.target.value);
+    });
+  }
+
+  if (pseudoInput) {
+    pseudoInput.value = localStorage.getItem("pseudo") || "";
+    pseudoInput.addEventListener("input", e => {
+      localStorage.setItem("pseudo", e.target.value);
+    });
+  }
+  // 👤 Fin de la gestion du compte
+  
   const lightBtn = document.getElementById("lightMode");
   const darkBtn = document.getElementById("darkMode");
   const fontSizeSelect = document.getElementById("fontSize");

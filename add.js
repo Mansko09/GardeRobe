@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const nom = document.getElementById("nom").value.trim();
+      const reference=document.getElementById("reference").value.trim();
       const marque = document.getElementById("marque").value.trim();
       const categorie = document.getElementById("categorie").value;
       const saison = document.getElementById("Saison").value;
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const vetement = {
           id: Date.now(),
           nom,
+          reference,
           marque,
           categorie,
           saison,

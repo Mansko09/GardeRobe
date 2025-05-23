@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card.innerHTML = `
       <img src="${vetement.image}" alt="${vetement.nom}"
-        class="w-full rounded mb-1 object-cover transition-transform duration-300 hover:scale-105 max-h-32"/>
+        class="w-full rounded mb-1 object-contain transition-transform duration-300 hover:scale-105 max-h-32"/>
       <h3 class="font-semibold">${vetement.nom}</h3>
       <p class="text-xs text-gray-600 dark:text-gray-300">
         ${vetement.categorie} · ${vetement.saison}
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", e => {
       e.preventDefault();
       const nom        = document.getElementById("nom").value.trim();
+      const reference = document.getElementById("reference").value.trim();
       const marque     = document.getElementById("marque").value.trim();
       const categorie  = document.getElementById("categorie").value;
       const saison     = document.getElementById("Saison").value;
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         vetements.push({
           id: Date.now(),
           nom,
+          reference,
           marque,
           categorie,
           saison,

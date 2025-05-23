@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderDetail(v) {
     detail.innerHTML = `
       <img src="${v.image}" alt="${v.nom}"
-        class="w-full rounded shadow mb-4 object-cover max-h-96" />
+        class="w-full rounded shadow mb-4 object-contain max-h-96" />
       <h2 class="text-xl font-bold">${v.nom}</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Référence : ${v.reference}</p>
       <p class="text-sm text-gray-600 dark:text-gray-300">Marque : ${v.marque}</p>
       <p class="text-sm text-gray-600 dark:text-gray-300">Catégorie : ${v.categorie}</p>
       <p class="text-sm text-gray-600 dark:text-gray-300">Saison : ${v.saison}</p>
@@ -55,6 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <label class="block text-sm font-medium">Nom</label>
           <input type="text" id="editNom" value="${v.nom}"
             class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Référence</label>
+          <input type="text" id="editReference" value="${v.reference}"
+            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white" >
         </div>
         <div>
           <label class="block text-sm font-medium">Marque</label>
@@ -111,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const newNom       = document.getElementById("editNom").value.trim();
+      const newReference = document.getElementById("editReference").value.trim();
       const newMarque    = document.getElementById("editMarque").value.trim();
       const newCategorie = document.getElementById("editCategorie").value;
       const newSaison    = document.getElementById("editSaison").value;
@@ -119,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       function applyChanges(imageData) {
         // Met à jour l'objet et le stockage
         v.nom       = newNom;
+        v.reference= newReference;
         v.marque    = newMarque;
         v.categorie = newCategorie;
         v.saison    = newSaison;
