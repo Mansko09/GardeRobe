@@ -4,37 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profil - Ma Garde-Robe</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-  tailwind.config = {
-    darkMode: 'class'
+<script>
+  // Si le thème sombre a déjà été sélectionné…
+  if (localStorage.getItem('theme') === 'dark') {
+    // …on ajoute la classe dark avant que la page ne rende quoi que ce soit.
+    document.documentElement.classList.add('dark');
   }
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' }
 </script>
   <script defer src="profile.js"></script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+<body class="bg-gray-100 pb-24 dark:bg-gray-900 dark:text-white font-sans">
 
-  <!-- Header -->
-  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">👤 Mon Profil</h1>
+  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white relative">
+    <h1 class="text-2xl font-bold">👤 Mon Profil</h1>
+    <a href="settings.html" class="absolute top-4 left-4 text-gray-500 dark:text-blue-300 text-xl">
+      ⚙️
+    </a>
   </header>
-    <button id="toggleDark" class="absolute top-4 right-4 text-gray-500 dark:text-yellow-300">
-        🌙
-      </button>
-  <main class="max-w-md mx-auto p-6 text-center bg-white shadow rounded-lg mt-6 dark:bg-gray-800 text-gray-800 dark:text-white"">
-    <img src="https://via.placeholder.com/100" alt="Photo de profil"
-      class="w-24 h-24 rounded-full mx-auto mb-4 shadow">
-    <h2 class="text-xl font-semibold text-gray-800 dark:text-white">@utilisateur</h2>
-    <p id="total" class="text-gray-600 mt-2 dark:text-white">Chargement...</p>
+
+  <main class="max-w-md mx-auto p-6 space-y-6">
+    <!-- Photo de profil -->
+    <div class="text-center">
+      <label for="photoProfil">
+        <img id="profilePic" src="https://via.placeholder.com/100" alt="Photo de profil" class="w-24 h-24 rounded-full mx-auto mb-4 shadow cursor-pointer object-cover">
+      </label>
+      <input type="file" id="photoProfil" accept="image/*" class="hidden">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white">@utilisateur</h2>
+      <p id="total" class="text-gray-600 dark:text-gray-300 mt-2">Chargement...</p>
+    </div>
+
+    <!-- Informations personnelles -->
+    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-3">
+      <h3 class="text-lg font-bold">📋 Mes informations</h3>
+      <input type="number" id="age" placeholder="Âge" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
+      <input type="text" id="poids" placeholder="Poids (kg)" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
+      <input type="text" id="mensurations" placeholder="Mensurations (ex: 90-70-95)" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
+    </section>
+
+    <!-- Mon corps -->
+    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-3">
+      <h3 class="text-lg font-bold">🧍 Mon corps</h3>
+      <label class="block">Photo entière : <input type="file" id="fullBody" accept="image/*" class="mt-1 w-full"></label>
+      <label class="block">Haut du corps : <input type="file" id="upperBody" accept="image/*" class="mt-1 w-full"></label>
+      <label class="block">Dos : <input type="file" id="backBody" accept="image/*" class="mt-1 w-full"></label>
+      <label class="block">Visage : <input type="file" id="face" accept="image/*" class="mt-1 w-full"></label>
+    </section>
   </main>
 
-  <!-- Navigation mobile -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md flex justify-around text-sm dark:bg-gray-800 text-gray-800 dark:text-white"">
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">
     <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
       <span class="text-xl">🏠</span><small>Accueil</small>
     </a>
     <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
       <span class="text-xl">🔍</span><small>Recherche</small>
+    </a>
+    <a href="add.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">➕</span><small>Ajouter</small>
     </a>
     <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
       <span class="text-xl">💬</span><small>Messages</small>
@@ -43,6 +73,5 @@
       <span class="text-xl">👤</span><small>Profil</small>
     </a>
   </nav>
-
 </body>
 </html>

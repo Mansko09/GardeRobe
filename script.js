@@ -1,73 +1,84 @@
-const form = document.getElementById("addForm");
-const gardeRobe = document.getElementById("gardeRobe");
+document.addEventListener("DOMContentLoaded", () => {
+  const form         = document.getElementById("addForm");
+  const gardeRobe    = document.getElementById("gardeRobe");
+  const filterCat    = document.getElementById("filterCat");
+  const filterSaison = document.getElementById("filterSaison");
 
-let vetements = JSON.parse(localStorage.getItem("vetements")) || [];
+  let vetements = JSON.parse(localStorage.getItem("vetements")) || [];
 
-// 🔁 Affiche les vêtements au chargement
-vetements.forEach(v => afficherVetement(v));
+  // Affiche les vêtements en appliquant les filtres
+  function renderVetements() {
+    if (!gardeRobe) return;
+    gardeRobe.innerHTML = "";
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
+    const catValue   = filterCat    ? filterCat.value    : "";
+    const saisonValue= filterSaison ? filterSaison.value : "";
 
-  const nom = document.getElementById("nom").value.trim();
-  const categorie = document.getElementById("categorie").value;
-  const saison = document.getElementById("Saison").value;
-  const imageInput = document.getElementById("image");
-  const marque = document.getElementById("marque").value.trim();
-  if (!imageInput.files.length) return;
+    vetements
+      .filter(v => !catValue   || v.categorie === catValue)
+      .filter(v => !saisonValue|| v.saison    === saisonValue)
+      .forEach(v => afficherVetement(v));
+  }
 
-  const reader = new FileReader();
-  reader.onload = function (event) {
-  const vetement = {
-    id: Date.now(),
-    nom,
-    marque,
-    categorie,
-    saison,
-    image: event.target.result
-  };
+  // Création et insertion d’une carte
+  function afficherVetement(vetement) {
+    const card = document.createElement("div");
+    card.className = 
+      "break-inside-avoid mb-2 bg-white dark:bg-gray-800 text-gray-800 " +
+      "dark:text-white rounded shadow-sm overflow-hidden p-1 text-sm";
 
-    vetements.push(vetement);
-    localStorage.setItem("vetements", JSON.stringify(vetements));
-    afficherVetement(vetement);
-    form.reset();
-  };
+    card.innerHTML = `
+      <img src="${vetement.image}" alt="${vetement.nom}"
+        class="w-full rounded mb-1 object-cover transition-transform duration-300 hover:scale-105 max-h-32"/>
+      <h3 class="font-semibold">${vetement.nom}</h3>
+      <p class="text-xs text-gray-600 dark:text-gray-300">
+        ${vetement.categorie} · ${vetement.saison}
+      </p>
+      <button onclick="supprimerVetement(${vetement.id})"
+        class="mt-1 text-xs text-red-500 hover:underline">🗑️</button>
+    `;
+     // on crée un lien autour de la carte
+    const link = document.createElement("a");
+    link.href = `item.html?id=${vetement.id}`;
+    link.appendChild(card);
 
-  reader.readAsDataURL(imageInput.files[0]);
+    gardeRobe.appendChild(link);
+  }
+
+
+  // Gestion du formulaire d’ajout
+  if (form) {
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const nom        = document.getElementById("nom").value.trim();
+      const marque     = document.getElementById("marque").value.trim();
+      const categorie  = document.getElementById("categorie").value;
+      const saison     = document.getElementById("Saison").value;
+      const imageInput = document.getElementById("image");
+      if (!imageInput.files.length) return;
+
+      const reader = new FileReader();
+      reader.onload = event => {
+        vetements.push({
+          id: Date.now(),
+          nom,
+          marque,
+          categorie,
+          saison,
+          image: event.target.result
+        });
+        localStorage.setItem("vetements", JSON.stringify(vetements));
+        form.reset();
+        renderVetements();
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    });
+  }
+
+  // Écouteurs pour les filtres
+  if (filterCat)    filterCat.addEventListener("change", renderVetements);
+  if (filterSaison) filterSaison.addEventListener("change", renderVetements);
+
+  // Premier affichage
+  renderVetements();
 });
-
-function afficherVetement(vetement) {
-  const card = document.createElement("div");
-  card.className = "break-inside-avoid mb-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow overflow-hidden p-2";
-
-  card.innerHTML = `
-    <img src="${vetement.image}" alt="${vetement.nom}" class="w-full rounded mb-2 object-cover transition-transform duration-300 hover:scale-105" />
-    <h3 class="font-semibold text-lg">${vetement.nom}</h3>
-    <p class="text-sm text-gray-600 dark:text-gray-300">${vetement.categorie} – ${vetement.saison}</p>
-    <button onclick="supprimerVetement(${vetement.id})" class="mt-2 text-sm text-red-500 hover:underline">🗑️ Supprimer</button>
-  `;
-
-  gardeRobe.prepend(card);
-}
-
-function supprimerVetement(id) {
-  vetements = vetements.filter(v => v.id !== id);
-  localStorage.setItem("vetements", JSON.stringify(vetements));
-  gardeRobe.innerHTML = "";
-  vetements.forEach(v => afficherVetement(v));
-}
-
-// 🌙 Mode sombre persistant
-const toggle = document.getElementById('toggleDark');
-toggle.addEventListener('click', () => {
-  document.documentElement.classList.toggle('dark');
-  const isDark = document.documentElement.classList.contains('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
-
-if (localStorage.getItem('theme') === 'dark') {
-  document.documentElement.classList.add('dark');
-}
-
-
-

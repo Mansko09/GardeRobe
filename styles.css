@@ -1,3 +1,11 @@
 .vetement {
   break-inside: avoid;
 }
+:root {
+  --main-color: #3b82f6; /* couleur par défaut */
+}
+
+button,
+input[type="submit"] {
+  background-color: var(--main-color);
+}
