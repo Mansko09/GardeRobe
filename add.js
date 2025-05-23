@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const categorie = document.getElementById("categorie").value;
       const saison = document.getElementById("Saison").value;
       const imageInput = document.getElementById("image");
+      const currentUser = localStorage.getItem("pseudo") || "inconnu";
 
       if (!imageInput.files.length) return;
 
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
           marque,
           categorie,
           saison,
-          image: event.target.result
+          image: event.target.result,
+          owner: currentUser
         };
 
         let vetements = JSON.parse(localStorage.getItem("vetements")) || [];

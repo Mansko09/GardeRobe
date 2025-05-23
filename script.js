@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form         = document.getElementById("addForm");
   const gardeRobe    = document.getElementById("gardeRobe");
+  const currentUser   = localStorage.getItem("pseudo") || "inconnu";
   const filterCat    = document.getElementById("filterCat");
   const filterSaison = document.getElementById("filterSaison");
 
@@ -67,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
           marque,
           categorie,
           saison,
-          image: event.target.result
+          image: event.target.result,
+          owner: currentUser
         });
         localStorage.setItem("vetements", JSON.stringify(vetements));
         form.reset();
