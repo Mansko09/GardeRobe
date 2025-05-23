@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("pseudo", e.target.value);
     });
   }
+  // — Gestion du compte public / privé —
+  const accountPublicCheckbox = document.getElementById("accountPublic");
+  // Charger la valeur (true par défaut)
+  const isPublic = localStorage.getItem("accountPublic");
+  accountPublicCheckbox.checked = isPublic === null ? true : isPublic === "true";
+  accountPublicCheckbox.addEventListener("change", e => {
+    localStorage.setItem("accountPublic", e.target.checked);
+     });
   // 👤 Fin de la gestion du compte
   
   const lightBtn = document.getElementById("lightMode");

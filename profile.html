@@ -2,71 +2,143 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profil - Ma Garde-Robe</title>
-<script>
-  // Si le thème sombre a déjà été sélectionné…
-  if (localStorage.getItem('theme') === 'dark') {
-    // …on ajoute la classe dark avant que la page ne rende quoi que ce soit.
-    document.documentElement.classList.add('dark');
-  }
-</script>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = { darkMode: 'class' }
-</script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script> tailwind.config = { darkMode: 'class' } </script>
   <script defer src="profile.js"></script>
 </head>
-<body class="bg-gray-100 pb-24 dark:bg-gray-900 dark:text-white font-sans">
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
 
-  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white relative">
+  <!-- Header -->
+  <header class="relative text-center py-6 bg-white dark:bg-gray-800 shadow">
     <h1 class="text-2xl font-bold">👤 Mon Profil</h1>
-    <a href="settings.html" class="absolute top-4 left-4 text-gray-500 dark:text-blue-300 text-xl">
-      ⚙️
-    </a>
+    <a href="settings.html" class="absolute top-4 left-4 text-2xl text-gray-500 dark:text-gray-300">⚙️</a>
   </header>
 
-  <main class="max-w-md mx-auto p-6 space-y-6">
-    <!-- Photo de profil -->
-    <div class="text-center">
-      <label for="photoProfil">
-        <img id="profilePic" src="https://via.placeholder.com/100" alt="Photo de profil" class="w-24 h-24 rounded-full mx-auto mb-4 shadow cursor-pointer object-contain">
-      </label>
-      <input type="file" id="photoProfil" accept="image/*" class="hidden">
-      <h2 id="displayNameText">@Utilisateur</h2>
-      <p id="pseudoText" class="text-gray-600 dark:text-gray-300">@mon_pseudo</p>
-      <p id="total" class="text-gray-600 dark:text-gray-300 mt-2">Chargement...</p>
-    </div>
+  <main class="max-w-5xl mx-auto p-6 grid gap-6 grid-cols-1 md:grid-cols-3">
 
-    <!-- Informations personnelles -->
-    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-3">
-      <h3 class="text-lg font-bold">📋 Mes informations</h3>
-      <input type="number" id="age" placeholder="Âge" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
-      <input type="text" id="poids" placeholder="Poids (kg)" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
-      <input type="text" id="mensurations" placeholder="Mensurations (ex: 90-70-95)" class="w-full p-2 rounded border border-gray-300 dark:bg-gray-900 dark:text-white">
+    <!-- COL 1: Photo & Stats -->
+    <aside class="space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-center">
+        <label for="photoProfil" class="cursor-pointer">
+          <img id="profilePic"
+               src="https://via.placeholder.com/100"
+               alt="Photo de profil"
+               class="w-24 h-24 rounded-full mx-auto mb-4 object-contain shadow"/>
+        </label>
+        <input type="file" id="photoProfil" accept="image/*" class="hidden"/>
+        <h2 id="displayNameText" class="text-xl font-semibold">Utilisateur</h2>
+        <p id="pseudoText" class="text-gray-600 dark:text-gray-400">@pseudo</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 grid grid-cols-2 text-center">
+        <div>
+          <p class="text-2xl font-bold" id="total">0</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Vêtements</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold">0</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Followers</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- COL 2: Infos & Corps -->
+    <section class="md:col-span-2 space-y-6">
+
+      <!-- Mes informations -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <h3 class="text-lg font-bold mb-4">📋 Mes informations</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <input type="number" id="age" placeholder="Âge"
+                 class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
+          <input type="number" id="poids" placeholder="Poids (kg)"
+                 class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
+          <input type="text" id="mensurations" placeholder="Mensurations"
+                 class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
+        </div>
+      </div>
+
+      <section class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <h3 class="text-lg font-bold mb-4">🧍 Mon corps</h3>
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- Full body -->
+          <div class="text-center space-y-2">
+            <h4 class="text-sm font-medium">Full body</h4>
+            <img id="fullBodyPreview"
+                src=""
+                alt="Aperçu full body"
+                class="w-full h-40 object-contain rounded-lg border border-gray-200 dark:border-gray-700 mx-auto hidden">
+            <button id="fullBodyBtn"
+                    class="w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition">
+              Ajouter / Modifier
+            </button>
+            <input type="file" id="fullBodyInput" accept="image/*" class="hidden">
+          </div>
+
+          <!-- Haut du corps -->
+          <div class="text-center space-y-2">
+            <h4 class="text-sm font-medium">Haut</h4>
+            <img id="upperBodyPreview"
+                src=""
+                alt="Aperçu haut du corps"
+                class="w-full h-40 object-contain rounded-lg border border-gray-200 dark:border-gray-700 mx-auto hidden">
+            <button id="upperBodyBtn"
+                    class="w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition">
+              Ajouter / Modifier
+            </button>
+            <input type="file" id="upperBodyInput" accept="image/*" class="hidden">
+          </div>
+
+          <!-- Dos -->
+          <div class="text-center space-y-2">
+            <h4 class="text-sm font-medium">Dos</h4>
+            <img id="backBodyPreview"
+                src=""
+                alt="Aperçu dos"
+                class="w-full h-40 object-contain rounded-lg border border-gray-200 dark:border-gray-700 mx-auto hidden">
+            <button id="backBodyBtn"
+                    class="w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition">
+              Ajouter / Modifier
+            </button>
+            <input type="file" id="backBodyInput" accept="image/*" class="hidden">
+          </div>
+
+          <!-- Visage -->
+          <div class="text-center space-y-2">
+            <h4 class="text-sm font-medium">Visage</h4>
+            <img id="facePreview"
+                src=""
+                alt="Aperçu visage"
+                class="w-full h-40 object-contain rounded-lg border border-gray-200 dark:border-gray-700 mx-auto hidden">
+            <button id="faceBtn"
+                    class="w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition">
+              Ajouter / Modifier
+            </button>
+            <input type="file" id="faceInput" accept="image/*" class="hidden">
+          </div>
+
+        </div>
+      </section>
+
+
+
+      <!-- Essayage Virtuel -->
+      <div class="text-center">
+        <a href="tryon.html"
+           class="inline-block w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+          👗 Essayage Virtuel
+        </a>
+      </div>
+
     </section>
-
-    <!-- Mon corps -->
-    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-3">
-      <h3 class="text-lg font-bold">🧍 Mon corps</h3>
-      <label class="block">Photo entière : <input type="file" id="fullBody" accept="image/*" class="mt-1 w-full"></label>
-      <label class="block">Haut du corps : <input type="file" id="upperBody" accept="image/*" class="mt-1 w-full"></label>
-      <label class="block">Dos : <input type="file" id="backBody" accept="image/*" class="mt-1 w-full"></label>
-      <label class="block">Visage : <input type="file" id="face" accept="image/*" class="mt-1 w-full"></label>
-    </section>
-
-        <!-- 4) Essayage Virtuel -->
-    <section class="text-center">
-      <a href="tryon.html"
-         class="inline-block w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
-        👗 Essayage Virtuel
-      </a>
-    </section>
-
-
-
-
   </main>
 
   <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">
