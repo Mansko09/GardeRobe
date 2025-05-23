@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres - Ma Garde-Robe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <script defer src="settings.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white font-sans pb-24">
+
+  <header class="text-center py-6 bg-white shadow dark:bg-gray-800 text-gray-800 dark:text-white relative">
+    <h1 class="text-2xl font-bold">⚙️ Paramètres</h1>
+    <a href="profile.html" class="absolute top-4 left-4 text-gray-500 dark:text-blue-300 text-xl">
+      🔙
+    </a>
+  </header>
+
+  <main class="max-w-md mx-auto p-6 space-y-6">
+    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-4">
+      <h2 class="text-lg font-bold">🔒 Confidentialité</h2>
+      <label class="flex items-center">
+        <input type="checkbox" class="form-checkbox text-blue-500 mr-2">
+        Autoriser l'affichage public de mes vêtements
+      </label>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-4">
+      <h2 class="text-lg font-bold">🔔 Notifications</h2>
+      <label class="flex items-center">
+        <input type="checkbox" class="form-checkbox text-blue-500 mr-2">
+        Activer les rappels pour prendre des photos
+      </label>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 p-4 rounded shadow space-y-4">
+      <h2 class="text-lg font-bold">🎨 Apparence</h2>
+      <div class="flex gap-2">
+        <button id="lightMode" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Clair</button>
+        <button id="darkMode" class="px-4 py-2 rounded bg-gray-800 text-white">Sombre</button>
+      </div>
+      <div>
+        <label class="block mt-4 text-sm font-medium">Taille de police</label>
+        <select id="fontSize" class="w-full mt-1 p-2 border border-gray-300 rounded dark:bg-gray-900 dark:text-white">
+          <option value="text-sm">Petite</option>
+          <option value="text-base" selected>Normale</option>
+          <option value="text-lg">Grande</option>
+        </select>
+      </div>
+      <div>
+        <label class="block mt-4 text-sm font-medium">Couleur principale</label>
+        <input type="color" id="mainColor" value="#3b82f6" class="mt-1 w-full h-10 border-none">
+      </div>
+    </section>
+  </main>
+
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">
+    <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🏠</span><small>Accueil</small>
+    </a>
+    <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🔍</span><small>Recherche</small>
+    </a>
+    <a href="add.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">➕</span><small>Ajouter</small>
+    </a>
+    <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">💬</span><small>Messages</small>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+      <span class="text-xl">👤</span><small>Profil</small>
+    </a>
+  </nav>
+
+</body>
+</html>
