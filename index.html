@@ -52,16 +52,131 @@
     <section id="gardeRobe" class="columns-3 sm:columns-3 lg:columns-4 gap-2 p-2 [column-fill:_balance]"></section>
   </main>
 
+  <!--Bouton d'ajout-->
+  <button id="openAddModal"
+     class="fixed bottom-20 left-4 z-50 bg-blue-500 hover:bg-blue-600 text-white
+            rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition">
+    <span class="text-3xl leading-none">➕</span>
+  </button>
+   <!-- Modal d'ajout -->
+  <div id="addModal"
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center overflow-auto hidden">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 max-w-md mt-20 mb-20">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Nouveau vêtement</h2>
+        <button id="closeAddModal" class="text-gray-500 dark:text-gray-300 text-2xl">&times;</button>
+      </div>
+
+      <form id="addForm" class="space-y-4">
+
+        <!-- Aperçu image -->
+        <div class="text-center">
+          <img id="itemImagePreview" src="" alt="Aperçu" class="mx-auto mb-2 w-32 h-32 object-contain hidden"/>
+        </div>
+
+        <!-- Upload image -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Photo du vêtement</label>
+          <input type="file" id="imageInput" accept="image/*"
+            class="w-full text-sm text-gray-700 dark:text-gray-200"/>
+        </div>
+
+        <!-- Réference -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Référence</label>
+          <input type="text" id="Reference" required
+            class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
+        </div>
+
+        <!-- Marque -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Marque</label>
+          <input type="text" id="marque"
+            class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
+        </div>
+
+        <!-- Catégorie et Saison côte à côte -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-sm font-medium mb-1">Catégorie</label>
+            <select id="categorie" required
+              class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+              <option value="">--Catégorie--</option>
+              <option>Haut</option><option>Bas</option>
+              <option>Robe</option><option>Chaussures</option>
+              <option>Accessoire</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Saison</label>
+            <select id="Saison" required
+              class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+              <option value="">--Saison--</option>
+              <option>Été</option><option>Automne</option>
+              <option>Hiver</option><option>Printemps</option>
+              <option>Inter-saison</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Couleur -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Couleur dominante</label>
+          <input type="color" id="colorInput" value="#3b82f6"
+            class="w-full h-10 p-0 border-0 rounded"/>
+        </div>
+
+        <!-- Matériau -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Matériau</label>
+          <select id="material" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+            <option value="Coton">Coton</option>
+            <option value="Polyester">Polyester</option>
+            <option value="Nylon">Nylon</option>
+            <option value="Laine">Laine</option>
+            <option value="Denim">Denim</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <!-- Type de lavage & séchage -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-sm font-medium mb-1">Lavage</label>
+            <select id="washType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+              <option>Cycle doux à froid (30°)</option>
+              <option>Cycle normal à froid (30°)</option>
+              <option>Cycle doux à chaud (40°)</option>
+              <option>Cycle normal à chaud (40°)</option>
+              <option>Nettoyage à sec</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Séchage</label>
+            <select id="dryType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+              <option>Séchage à l'air</option>
+              <option>Sèche-linge doux</option>
+              <option>Sèche-linge normal</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bouton d'envoi -->
+        <button type="submit"
+          class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
+          Ajouter au dressing
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Navigation mobile -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-white border-t shadow-md flex justify-around text-sm">
-    <a href="index.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-whiteborder-t shadow-md flex justify-around text-sm">
+    <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
       <span class="text-xl">🏠</span><small>Accueil</small>
     </a>
-    <a href="search.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+    <a href="search.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
       <span class="text-xl">🔍</span><small>Recherche</small>
-    </a>
-    <a href="add.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
-      <span class="text-xl">➕</span><small>Ajouter</small>
     </a>
     <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
       <span class="text-xl">💬</span><small>Messages</small>
