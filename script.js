@@ -27,7 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // wrapper inline-block
     const wrapper = document.createElement("div");
     wrapper.className = "inline-block w-full mb-4";
-
+    // redirection au clic sur TOUTE la carte
+    wrapper.addEventListener("click", () => {
+      window.location.href = `item.html?id=${v.id}`;
+    });
     // la carte
     const card = document.createElement("div");
     card.className = [
