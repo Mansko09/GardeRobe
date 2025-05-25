@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Favoris - Ma Garde-Robe</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script> tailwind.config = { darkMode: 'class' } </script>
+  <script defer src="favorites.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white pb-24 font-sans">
+
+  <!-- Header -->
+  <header class="relative text-center py-6 bg-white dark:bg-gray-800 shadow">
+    <h1 class="text-2xl font-bold">👤 Mon Profil</h1>
+  </header>
+  <nav class="mt-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex justify-center space-x-8 text-sm font-medium">
+      <li><a href="profile.html"    class="pb-2 text-gray-500 hover:text-blue-500">Profil</a></li>
+      <li><a href="favorites.html"  class="pb-2 border-b-2 border-blue-500">Favoris</a></li>
+      <li><a href="settings.html"   class="pb-2 text-gray-500 hover:text-blue-500">Paramètres</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-5xl mx-auto p-4">
+    <section id="favoritesGrid" class="columns-3 sm:columns-4 lg:columns-5 gap-2 p-2 [column-fill:_balance]">
+      <!-- injecté par favorites.js -->
+    </section>
+  </main>
+
+
+  <!-- Navigation mobile -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-whiteborder-t shadow-md flex justify-around text-sm">
+    <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">🏠</span><small>Accueil</small>
+    </a>
+    <a href="search.html" class="flex flex-col items-center text-blue-600 py-2 dark:text-white">
+      <span class="text-xl">🔍</span><small>Recherche</small>
+    </a>
+    <a href="messages.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">💬</span><small>Messages</small>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
+      <span class="text-xl">👤</span><small>Profil</small>
+    </a>
+  </nav>
+</body>
+</html>
