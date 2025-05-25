@@ -1,27 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const params     = new URLSearchParams(window.location.search);
-  const id         = Number(params.get("id"));
-  const detail     = document.getElementById("itemDetail");
-  let vetements    = JSON.parse(localStorage.getItem("vetements")) || [];
+  const params   = new URLSearchParams(window.location.search);
+  const id       = Number(params.get("id"));
+  const detailEl = document.getElementById("itemDetail");
+  let vetements  = JSON.parse(localStorage.getItem("vetements")) || [];
 
-  // Récupère l'item
+  // Trouve l'item à afficher
   const item = vetements.find(v => v.id === id);
   if (!item) {
-    detail.innerHTML = "<p class='text-center text-red-500'>Élément introuvable.</p>";
+    detailEl.innerHTML = "<p class='text-center text-red-500'>Élément introuvable.</p>";
     return;
   }
 
-  // Fonction pour (re)rendre le détail avec boutons
+  // Rend le détail complet
   function renderDetail(v) {
-    detail.innerHTML = `
-      <img src="${v.image}" alt="${v.nom}"
-        class="w-full rounded shadow mb-4 object-contain max-h-96" />
-      <h2 class="text-xl font-bold">${v.nom}</h2>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Référence : ${v.reference}</p>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Marque : ${v.marque}</p>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Catégorie : ${v.categorie}</p>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Saison : ${v.saison}</p>
-      <div class="flex gap-2 mt-4">
+    detailEl.innerHTML = `
+      <img src="${v.image}" alt="${v.reference}"
+           class="w-full rounded shadow mb-4 object-contain max-h-96" />
+      <h2 class="text-2xl font-bold">${v.reference}</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Marque     : <strong>${v.marque}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Catégorie  : <strong>${v.categorie}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Saison     : <strong>${v.saison}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Couleur    : 
+        <span class="inline-block w-4 h-4 rounded-full mr-1"
+              style="background-color:${v.color}"></span>
+        <strong>${v.color}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Matériau   : <strong>${v.material}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Lavage     : <strong>${v.washType}</strong>
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Séchage    : <strong>${v.dryType}</strong>
+      </p>
+      <div class="flex gap-2 mt-6">
         <button id="editBtn"
           class="flex-1 bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition">
           ✏️ Modifier
@@ -35,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Supprimer
     document.getElementById("deleteBtn").addEventListener("click", () => {
-      if (confirm("Êtes-vous sûr de vouloir le supprimer ?")) {
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
         vetements = vetements.filter(x => x.id !== id);
         localStorage.setItem("vetements", JSON.stringify(vetements));
         window.location.href = "index.html";
@@ -50,50 +70,112 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Affiche le formulaire d'édition
   function showEditForm(v) {
-    detail.innerHTML = `
+    detailEl.innerHTML = `
       <form id="editForm" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium">Nom</label>
-          <input type="text" id="editNom" value="${v.nom}"
-            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white" required>
-        </div>
+
+        <!-- Référence -->
         <div>
           <label class="block text-sm font-medium">Référence</label>
           <input type="text" id="editReference" value="${v.reference}"
-            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white" >
+            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white" required>
         </div>
+
+        <!-- Marque -->
         <div>
           <label class="block text-sm font-medium">Marque</label>
           <input type="text" id="editMarque" value="${v.marque}"
             class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
         </div>
+
+        <!-- Catégorie & Saison -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-sm font-medium">Catégorie</label>
+            <select id="editCategorie"
+              class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
+              <option ${v.categorie==="Haut"       ? "selected":""}>Haut</option>
+              <option ${v.categorie==="Bas"        ? "selected":""}>Bas</option>
+              <option ${v.categorie==="Robe"       ? "selected":""}>Robe</option>
+              <option ${v.categorie==="Chaussures" ? "selected":""}>Chaussures</option>
+              <option ${v.categorie==="Accessoire" ? "selected":""}>Accessoire</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Saison</label>
+            <select id="editSaison"
+              class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
+              <option ${v.saison==="Été"          ? "selected":""}>Été</option>
+              <option ${v.saison==="Automne"      ? "selected":""}>Automne</option>
+              <option ${v.saison==="Hiver"        ? "selected":""}>Hiver</option>
+              <option ${v.saison==="Printemps"    ? "selected":""}>Printemps</option>
+              <option ${v.saison==="Inter-saison" ? "selected":""}>Inter-saison</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Couleur -->
         <div>
-          <label class="block text-sm font-medium">Catégorie</label>
-          <select id="editCategorie"
+          <label class="block text-sm font-medium">Couleur</label>
+          <input type="color" id="editColor" value="${v.color}"
+            class="w-full h-10 p-0 border-0 rounded">
+        </div>
+
+        <!-- Matériau -->
+        <div>
+          <label class="block text-sm font-medium">Matériau</label>
+          <select id="editMaterial"
             class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
-            <option ${v.categorie === "Robe"        ? "selected" : ""}>Robe</option>
-            <option ${v.categorie === "Haut"        ? "selected" : ""}>Haut</option>
-            <option ${v.categorie === "Bas"         ? "selected" : ""}>Bas</option>
-            <option ${v.categorie === "Chaussures"  ? "selected" : ""}>Chaussures</option>
-            <option ${v.categorie === "Accessoire"  ? "selected" : ""}>Accessoire</option>
+            <option ${v.material==="Coton"     ? "selected":""}>Coton</option>
+            <option ${v.material==="Polyester" ? "selected":""}>Polyester</option>
+            <option ${v.material==="Nylon"     ? "selected":""}>Nylon</option>
+            <option ${v.material==="Laine"     ? "selected":""}>Laine</option>
+            <option ${v.material==="Denim"     ? "selected":""}>Denim</option>
+            <option ${v.material==="Autre"     ? "selected":""}>Autre</option>
           </select>
         </div>
-        <div>
-          <label class="block text-sm font-medium">Saison</label>
-          <select id="editSaison"
-            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
-            <option ${v.saison === "Été"          ? "selected" : ""}>Été</option>
-            <option ${v.saison === "Hiver"        ? "selected" : ""}>Hiver</option>
-            <option ${v.saison === "Automne"      ? "selected" : ""}>Automne</option>
-            <option ${v.saison === "Printemps"    ? "selected" : ""}>Printemps</option>
-            <option ${v.saison === "Inter-saison" ? "selected" : ""}>Inter-saison</option>
-          </select>
+
+        <!-- Lavage & Séchage -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-sm font-medium">Lavage</label>
+            <select id="editWashType"
+              class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
+              <option ${v.washType==="Cycle doux à froid (30°)"   ? "selected":""}>
+                Cycle doux à froid (30°)
+              </option>
+              <option ${v.washType==="Cycle normal à froid (30°)" ? "selected":""}>
+                Cycle normal à froid (30°)
+              </option>
+              <option ${v.washType==="Cycle doux à chaud (40°)"   ? "selected":""}>
+                Cycle doux à chaud (40°)
+              </option>
+              <option ${v.washType==="Cycle normal à chaud (40°)" ? "selected":""}>
+                Cycle normal à chaud (40°)
+              </option>
+              <option ${v.washType==="Nettoyage à sec"            ? "selected":""}>
+                Nettoyage à sec
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Séchage</label>
+            <select id="editDryType"
+              class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
+              <option ${v.dryType==="Séchage à l'air"     ? "selected":""}>Séchage à l'air</option>
+              <option ${v.dryType==="Sèche-linge doux"    ? "selected":""}>Sèche-linge doux</option>
+              <option ${v.dryType==="Sèche-linge normal"  ? "selected":""}>Sèche-linge normal</option>
+            </select>
+          </div>
         </div>
+
+        <!-- Changer l'image -->
         <div>
           <label class="block text-sm font-medium">Changer l’image</label>
           <input type="file" id="editImage" accept="image/*"
-            class="w-full p-2 border rounded bg-white dark:bg-gray-800">
+            class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"/>
         </div>
+
+        <!-- Boutons -->
         <div class="flex gap-2">
           <button type="submit"
             class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
@@ -107,29 +189,36 @@ document.addEventListener("DOMContentLoaded", () => {
       </form>
     `;
 
-    // Annuler
+    // Annuler l'édition
     document.getElementById("cancelBtn").addEventListener("click", () => {
       renderDetail(v);
     });
 
-    // Soumettre les modifications
+    // Soumettre l'édition
     document.getElementById("editForm").addEventListener("submit", e => {
       e.preventDefault();
 
-      const newNom       = document.getElementById("editNom").value.trim();
+      // Récupère les nouvelles valeurs
       const newReference = document.getElementById("editReference").value.trim();
       const newMarque    = document.getElementById("editMarque").value.trim();
       const newCategorie = document.getElementById("editCategorie").value;
       const newSaison    = document.getElementById("editSaison").value;
+      const newColor     = document.getElementById("editColor").value;
+      const newMaterial  = document.getElementById("editMaterial").value;
+      const newWashType  = document.getElementById("editWashType").value;
+      const newDryType   = document.getElementById("editDryType").value;
       const fileInput    = document.getElementById("editImage");
 
+      // Applique les changements (avec ou sans nouvelle image)
       function applyChanges(imageData) {
-        // Met à jour l'objet et le stockage
-        v.nom       = newNom;
-        v.reference= newReference;
+        v.reference = newReference;
         v.marque    = newMarque;
         v.categorie = newCategorie;
         v.saison    = newSaison;
+        v.color     = newColor;
+        v.material  = newMaterial;
+        v.washType  = newWashType;
+        v.dryType   = newDryType;
         v.image     = imageData;
         localStorage.setItem("vetements", JSON.stringify(vetements));
         renderDetail(v);
@@ -145,6 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Premier rendu
+  // Affiche initialement le détail
   renderDetail(item);
 });
