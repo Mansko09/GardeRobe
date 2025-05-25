@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <p class="text-xs text-gray-600 dark:text-gray-300">
         ${vetement.categorie} · ${vetement.saison}
       </p>
-      <button onclick="supprimerVetement(${vetement.id})"
-        class="mt-1 text-xs text-red-500 hover:underline">🗑️</button>
     `;
      // on crée un lien autour de la carte
     const link = document.createElement("a");
@@ -85,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderVetements();
 });
 
-//Ajout de vêtements 
+//Ajout de vêtements
 document.addEventListener("DOMContentLoaded", () => {
   const openBtn  = document.getElementById("openAddModal");
   const closeBtn = document.getElementById("closeAddModal");
@@ -160,4 +158,72 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.readAsDataURL(imageInput.files[0]);
   });
+
+  //  ➕ Affichage des options avancées
+  const toggleBtn    = document.getElementById("toggleOptions");
+  const moreOptions  = document.getElementById("moreOptions");
+
+  toggleBtn.addEventListener("click", () => {
+    const isHidden = moreOptions.classList.toggle("hidden");
+    toggleBtn.textContent = isHidden
+      ? "+ Plus d’options"
+      : "– Moins d’options";
+      });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const gardeRobe   = document.getElementById("gardeRobe");
+  const currentUser = localStorage.getItem("pseudo") || "inconnu";
+  let vetements     = JSON.parse(localStorage.getItem("vetements")) || [];
+  let favorites     = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  // Rend tous les vêtements
+  function renderVetements(items) {
+    gardeRobe.innerHTML = "";
+    items.forEach(v => afficherVetement(v));
+  }
+
+  // Toggle favoris
+  function toggleFavorite(id) {
+    if (favorites.includes(id)) {
+      favorites = favorites.filter(x => x !== id);
+    } else {
+      favorites.push(id);
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    renderVetements(vetements);
+  }
+
+  // Affiche une carte
+  function afficherVetement(v) {
+    const isFav = favorites.includes(v.id);
+    const card = document.createElement("div");
+    card.className = "relative break-inside-avoid mb-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow overflow-hidden p-2";
+
+    card.innerHTML = `
+      <img src="${v.image}" alt="${v.reference}" class="w-full rounded mb-2 object-contain transition-transform duration-300 hover:scale-105" />
+      <h3 class="font-semibold text-lg">${v.reference}</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300">${v.categorie} · ${v.saison}</p>
+      <button data-id="${v.id}" 
+              class="absolute top-2 right-2 text-xl focus:outline-none">
+        ${isFav ? '❤️' : '♡'}
+      </button>
+      <a href="item.html?id=${v.id}" 
+         class="absolute bottom-2 right-2 text-sm text-blue-500 hover:underline">
+        ℹ️
+      </a>
+    `;
+
+    // bookmark toggle listener
+    card.querySelector("button[data-id]").addEventListener("click", e => {
+      e.stopPropagation();
+      toggleFavorite(v.id);
+    });
+
+    gardeRobe.appendChild(card);
+  }
+
+  // initial render
+  renderVetements(vetements);
+
 });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mnsko</title>
+  <title>Mansko</title>
 <script>
   // Si le thème sombre a déjà été sélectionné…
   if (localStorage.getItem('theme') === 'dark') {
@@ -54,7 +54,7 @@
 
   <!--Bouton d'ajout-->
   <button id="openAddModal"
-     class="fixed bottom-20 left-4 z-50 bg-blue-500 hover:bg-blue-600 text-white
+     class="fixed bottom-20 left-4 z-50 bg-white-500 hover:bg-black-600 text-white
             rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition">
     <span class="text-3xl leading-none">➕</span>
   </button>
@@ -83,8 +83,8 @@
 
         <!-- Réference -->
         <div>
-          <label class="block text-sm font-medium mb-1">Référence</label>
-          <input type="text" id="Reference" required
+          <label class="block text-sm font-medium mb-1">Référence <span class="text-red-500">*</span></label>
+          <input type="text" id="reference" required
             class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white"/>
         </div>
 
@@ -98,7 +98,7 @@
         <!-- Catégorie et Saison côte à côte -->
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-sm font-medium mb-1">Catégorie</label>
+            <label class="block text-sm font-medium mb-1">Catégorie <span class="text-red-500">*</span></label>
             <select id="categorie" required
               class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
               <option value="">--Catégorie--</option>
@@ -108,7 +108,7 @@
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1">Saison</label>
+            <label class="block text-sm font-medium mb-1">Saison <span class="text-red-500">*</span> </label>
             <select id="Saison" required
               class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
               <option value="">--Saison--</option>
@@ -125,47 +125,63 @@
           <input type="color" id="colorInput" value="#3b82f6"
             class="w-full h-10 p-0 border-0 rounded"/>
         </div>
-
-        <!-- Matériau -->
+            <!-- 🔽 Lien “Plus d’options” -->
         <div>
-          <label class="block text-sm font-medium mb-1">Matériau</label>
-          <select id="material" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
-            <option value="Coton">Coton</option>
-            <option value="Polyester">Polyester</option>
-            <option value="Nylon">Nylon</option>
-            <option value="Laine">Laine</option>
-            <option value="Denim">Denim</option>
-            <option value="Autre">Autre</option>
-          </select>
+          <button type="button"
+                  id="toggleOptions"
+                  class="text-blue-500 hover:underline text-sm">
+            + Plus d’options
+          </button>
         </div>
 
-        <!-- Type de lavage & séchage -->
-        <div class="grid grid-cols-2 gap-2">
+        <!-- 📦 Champs avancés cachés par défaut -->
+        <div id="moreOptions" class="space-y-4 hidden">
+          <!-- Matériau -->
           <div>
-            <label class="block text-sm font-medium mb-1">Lavage</label>
-            <select id="washType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
-              <option>Cycle doux à froid (30°)</option>
-              <option>Cycle normal à froid (30°)</option>
-              <option>Cycle doux à chaud (40°)</option>
-              <option>Cycle normal à chaud (40°)</option>
-              <option>Nettoyage à sec</option>
+            <label class="block text-sm font-medium mb-1">Matériau</label>
+            <select id="material" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+              <option value="">--Matériau--</option>
+              <option value="Coton">Coton</option>
+              <option value="Polyester">Polyester</option>
+              <option value="Nylon">Nylon</option>
+              <option value="Laine">Laine</option>
+              <option value="Denim">Denim</option>
+              <option value="Autre">Autre</option>
             </select>
           </div>
-          <div>
-            <label class="block text-sm font-medium mb-1">Séchage</label>
-            <select id="dryType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
-              <option>Séchage à l'air</option>
-              <option>Sèche-linge doux</option>
-              <option>Sèche-linge normal</option>
-            </select>
+
+          <!-- Lavage & Séchage -->
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-sm font-medium mb-1">Lavage</label>
+              <select id="washType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+                <option value="">--Lavage--</option>
+                <option>Cycle doux à froid (30°)</option>
+                <option>Cycle normal à froid (30°)</option>
+                <option>Cycle doux à chaud (40°)</option>
+                <option>Cycle normal à chaud (40°)</option>
+                <option>Nettoyage à sec</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Séchage</label>
+              <select id="dryType" class="w-full p-2 border rounded dark:bg-gray-900 dark:text-white">
+                <option value="">--Séchage--</option>
+                <option>Séchage à l'air</option>
+                <option>Sèche-linge doux</option>
+                <option>Sèche-linge normal</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <!-- Bouton d'envoi -->
+        <!-- Bouton principal -->
         <button type="submit"
-          class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
+                class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
           Ajouter au dressing
         </button>
+
+
+
       </form>
     </div>
   </div>
