@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultContainer.innerHTML = `<p class="text-gray-500">Chargement…</p>`;
 
-    fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=AIzaSyAadutuuWnzino3WcMwUf-syFh3MTTK4Ds", {
+    fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
