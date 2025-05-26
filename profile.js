@@ -89,4 +89,28 @@ document.addEventListener("DOMContentLoaded", () => {
       reader.readAsDataURL(file);
     });
   });
+
+  // — Boutons de suppression —
+const deleteConfig = [
+  { btn: "deleteFullBodyBtn", type: "full",  preview: "fullBodyPreview" },
+  { btn: "deleteUpperBodyBtn", type: "upper", preview: "upperBodyPreview" },
+  { btn: "deleteBackBodyBtn",  type: "back",  preview: "backBodyPreview" },
+  { btn: "deleteFaceBtn",      type: "face",  preview: "facePreview" }
+];
+
+deleteConfig.forEach(({ btn, type, preview }) => {
+  const delBtn = document.getElementById(btn);
+  const img    = document.getElementById(preview);
+  if (!delBtn || !img) return;
+  delBtn.addEventListener("click", () => {
+    if (!confirm("Supprimer cette photo ?")) return;
+    // 1) Retirer du storage
+    let arr = JSON.parse(localStorage.getItem("profilePhotos")) || [];
+    arr = arr.filter(x => x.type !== type);
+    localStorage.setItem("profilePhotos", JSON.stringify(arr));
+    // 2) Cacher l’aperçu
+    img.src = "";
+    img.classList.add("hidden");
+  });
+});
 });
