@@ -24,27 +24,29 @@
   <main class="max-w-5xl mx-auto p-4">
     <!-- Grille des tenues -->
     <section id="lookGrid"
-             class="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-4">
       <!-- Injecté par JS -->
     </section>
   </main>
 
   <!-- Bouton créer une tenue -->
   <button id="openAddLookModal"
-     class="fixed bottom-20 left-4 z-50 bg-green-500 hover:bg-green-600 text-white
+     class="fixed bottom-20 left-4 z-50 bg-white-500 hover:indigo-600 text-white
             rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition">
     <span class="text-3xl leading-none">＋</span>
   </button>
 
-  <!-- Modal création de tenue -->
-  <div id="addLookModal"
-       class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center overflow-auto hidden">
+  <!-- Modal création/édition de tenue -->
+  <div id="addEditLookModal"
+       class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center
+              overflow-auto hidden">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 max-w-md mt-20 mb-20">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-bold">Nouvelle tenue</h2>
-        <button id="closeAddLookModal" class="text-gray-500 dark:text-gray-300 text-2xl">&times;</button>
+        <h2 id="modalTitle" class="text-lg font-bold">Nouvelle tenue</h2>
+        <button id="closeAddEditModal" class="text-gray-500 dark:text-gray-300 text-2xl">&times;</button>
       </div>
-      <form id="addLookForm" class="space-y-4">
+      <form id="addEditLookForm" class="space-y-4">
+        <input type="hidden" id="editLookId" />
         <div>
           <label for="lookName" class="block text-sm font-medium mb-1">Nom de la tenue</label>
           <input type="text" id="lookName" required
@@ -52,18 +54,34 @@
         </div>
         <div>
           <p class="block text-sm font-medium mb-2">Sélectionner les vêtements</p>
-          <div id="lookItemList" class="grid grid-cols-1 gap-2 max-h-64 overflow-auto">
+          <div id="lookItemList" class="grid grid-cols-3 gap-2 max-h-64 overflow-auto">
             <!-- Injecté par JS -->
           </div>
         </div>
         <button type="submit"
                 class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
-          Créer la tenue
+          Sauvegarder
         </button>
       </form>
     </div>
   </div>
   
+  <!-- Lightbox modal -->
+  <div id="viewLookModal"
+       class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+    <div class="relative bg-white dark:bg-gray-800 rounded-lg overflow-hidden max-w-xl w-full">
+      <button id="closeViewLook" 
+              class="absolute top-2 right-2 text-2xl text-gray-300 hover:text-white">&times;</button>
+      <div id="viewLookGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-4">
+        <!-- Injecté par JS -->
+      </div>
+      <div class="p-4 text-center">
+        <button id="prevLook" class="px-4 py-2 mr-2 bg-gray-200 dark:bg-gray-700 rounded">← Précédent</button>
+        <button id="nextLook" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">Suivant →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Navigation mobile -->
   <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 dark:text-whiteborder-t shadow-md flex justify-around text-sm">
     <a href="index.html" class="flex flex-col items-center text-gray-500 py-2 dark:text-white">
