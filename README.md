@@ -1,6 +1,6 @@
 # GR Web App
 
-Bienvenue dans **GR*, une application web conçue pour gérer votre collection de vêtements, créer et organiser des tenues, et bientôt partager vos looks avec vos amis !
+Bienvenue dans **GR**, une application web conçue pour gérer votre collection de vêtements, créer et organiser des tenues, et bientôt partager vos looks avec vos amis !
 
 ---
 
@@ -138,19 +138,20 @@ Les habits sélectionnés restent positionnés tant que le modal est ouvert (pas
 Cliquez sur “×” en haut à droite pour fermer le modal.
 
 ## Structure du projet
+
 ma-garde-robe/
-├─ index.html              # Page d’accueil : gestion des vêtements
-├─ lookbook.html           # Page Lookbook : création de tenues + Mix & Match
-├─ profil.html             # Page Profil : upload des photos (full body, visage, etc.)
-├─ styles/                 # (Optionnel) Dossier pour vos fichiers CSS personnalisés
-│   └─ main.css
-├─ scripts/
-│   ├─ profil.js           # Logique profil + stockage des photos (profilePhotos)
-│   ├─ lookbook.js         # Logique lookbook + Mix & Match
-│   └─ main.js             # (Optionnel) Code JavaScript pour la page d’accueil
-├─ assets/
-│   └─ images/             # (Optionnel) Icônes, placeholders, etc.
-└─ README.md               # Ce fichier
+    ├─ index.html              # Page d’accueil : gestion des vêtements
+    ├─ lookbook.html           # Page Lookbook : création de tenues + Mix & Match
+    ├─ profil.html             # Page Profil : upload des photos (full body, visage, etc.)
+    ├─ styles/                 # (Optionnel) Dossier pour vos fichiers CSS personnalisés
+    │   └─ main.css
+    ├─ scripts/
+    │   ├─ profil.js           # Logique profil + stockage des photos (profilePhotos)
+    │   ├─ lookbook.js         # Logique lookbook + Mix & Match
+    │   └─ main.js             # (Optionnel) Code JavaScript pour la page d’accueil
+    ├─ assets/
+    │   └─ images/             # (Optionnel) Icônes, placeholders, etc.
+    └─ README.md               # Ce fichier
 
 
 ### Détail des fichiers
