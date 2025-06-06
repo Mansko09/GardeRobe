@@ -137,22 +137,6 @@ Le vêtement se superpose automatiquement à la zone appropriée (torse, jambes,
 Les habits sélectionnés restent positionnés tant que le modal est ouvert (pas de sauvegarde automatique pour l’instant).  
 Cliquez sur “×” en haut à droite pour fermer le modal.
 
-## Structure du projet
-
-ma-garde-robe/
-    ├─ index.html              # Page d’accueil : gestion des vêtements
-    ├─ lookbook.html           # Page Lookbook : création de tenues + Mix & Match
-    ├─ profil.html             # Page Profil : upload des photos (full body, visage, etc.)
-    ├─ styles/                 # (Optionnel) Dossier pour vos fichiers CSS personnalisés
-    │   └─ main.css
-    ├─ scripts/
-    │   ├─ profil.js           # Logique profil + stockage des photos (profilePhotos)
-    │   ├─ lookbook.js         # Logique lookbook + Mix & Match
-    │   └─ main.js             # (Optionnel) Code JavaScript pour la page d’accueil
-    ├─ assets/
-    │   └─ images/             # (Optionnel) Icônes, placeholders, etc.
-    └─ README.md               # Ce fichier
-
 
 ### Détail des fichiers
 
