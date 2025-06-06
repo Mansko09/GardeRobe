@@ -121,4 +121,152 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   renderLooks();
+
+
+  /* ------------------------------------------------------------ */
+  /* ----------- DÉBUT DE LA PARTIE Mix & Match ----------------- */
+  /* ------------------------------------------------------------ */
+
+  // 1) Références aux éléments du modal Mix & Match
+  const openMixBtn   = document.getElementById("openMixModal");
+  const mixModal     = document.getElementById("mixMatchModal");
+  const closeMixBtn  = document.getElementById("closeMixModal");
+  const mixContainer = document.getElementById("mixContainer");
+  const fullBodyImg  = document.getElementById("mixFullBody");
+
+  // 2) Définir, pour chaque groupe, les catégories correspondantes
+  //    et initialiser un index pour le carousel
+  const groups = {
+    bas:       { categories: ["Pantalon","Short","Jupe"],       index: 0, carouselEl: document.getElementById("basCarousel") },
+    haut:      { categories: ["Haut","Robe"],                   index: 0, carouselEl: document.getElementById("hautCarousel") },
+    epaules:   { categories: ["Veste","Manteau"],               index: 0, carouselEl: document.getElementById("epaulesCarousel") },
+    chapeau:   { categories: ["Chapeau"],                       index: 0, carouselEl: document.getElementById("chapeauCarousel") },
+    lunettes:  { categories: ["Lunettes"],                      index: 0, carouselEl: document.getElementById("lunettesCarousel") },
+    chaussures:{ categories: ["Chaussures"],                    index: 0, carouselEl: document.getElementById("chaussuresCarousel") }
+  };
+
+  // 3) Extraire, pour chaque groupe, la liste filtrée de vêtements
+  const itemsByGroup = {};
+  for (let grp in groups) {
+    itemsByGroup[grp] = vetements.filter(v => groups[grp].categories.includes(v.categorie));
+  }
+
+  // 4) Fonction pour afficher l’item courant dans chaque carousel
+  function renderCarouselItem(groupKey) {
+    const grpObj = groups[groupKey];
+    const listItems = itemsByGroup[groupKey];
+    if (!listItems || listItems.length === 0) {
+      // Si pas d'items dans ce groupe, on affiche une image "vide" (ou on cache)
+      grpObj.carouselEl.src = "";
+      grpObj.carouselEl.alt = "Aucun élément";
+      return;
+    }
+    // On s'assure que l'index boucle sur la longueur
+    grpObj.index = ((grpObj.index % listItems.length) + listItems.length) % listItems.length;
+    const current = listItems[grpObj.index];
+    grpObj.carouselEl.src = current.image;
+    grpObj.carouselEl.alt = current.reference || "";
+    // On ajoute un attribut data-id pour récupérer facilement l'ID au clic
+    grpObj.carouselEl.setAttribute("data-id", current.id);
+  }
+
+  // 5) Initialisation de tous les carousels au chargement
+  for (let key in groups) {
+    renderCarouselItem(key);
+  }
+
+  // 6) Ouvrir / Fermer le modal Mix & Match
+  openMixBtn.addEventListener("click", () => {
+    // 1) Lire le tableau profilePhotos
+    const storedPhotos = JSON.parse(localStorage.getItem("profilePhotos")) || [];
+    // 2) Trouver l’objet { type:"full", data:… }
+    const fullObj = storedPhotos.find(p => p.type === "full");
+    // 3) Mettre à jour la source
+    if (fullObj && fullObj.data) {
+      fullBodyImg.src = fullObj.data;
+    } else {
+      fullBodyImg.src = ""; // ou placeholder si aucune full body n'a encore été uploadée
+    }
+    // 4) Nettoyer d’éventuels overlays précédents
+    document.querySelectorAll("#mixContainer img[class^='overlay-']").forEach(el => el.remove());
+    // 5) Afficher le modal
+    mixModal.classList.remove("hidden");
+  });
+
+  closeMixBtn.addEventListener("click", () => {
+    mixModal.classList.add("hidden");
+  });
+
+  // 7) Gestion des flèches “Précédent” / “Suivant”
+  document.querySelectorAll(".prev-btn, .next-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const grpKey = e.currentTarget.getAttribute("data-group");
+      if (!grpKey) return;
+      // Si clic sur “prev-btn”, on décrémente, sinon on incrémente
+      if (e.currentTarget.classList.contains("prev-btn")) {
+        groups[grpKey].index--;
+      } else {
+        groups[grpKey].index++;
+      }
+      renderCarouselItem(grpKey);
+    });
+  });
+
+  // 8) Lorsque l’utilisateur clique sur une image de carousel : on ajoute l’overlay
+  //    sur la zone “mixContainer” et on remplace l’existant pour ce groupe.
+  Object.keys(groups).forEach(grpKey => {
+    const imgEl = groups[grpKey].carouselEl;
+    imgEl.addEventListener("click", () => {
+      const selectedId = +imgEl.getAttribute("data-id");
+      const selectedV = vetements.find(v => v.id === selectedId);
+      if (!selectedV) return;
+
+      // Si un overlay pour ce groupe existe déjà, on le supprime
+      const existingOverlay = mixContainer.querySelector(`.overlay-${grpKey}`);
+      if (existingOverlay) existingOverlay.remove();
+
+      // On crée un nouvel <img> overlay
+      const overlay = document.createElement("img");
+      overlay.src = selectedV.image;
+      overlay.classList.add(`overlay-${grpKey}`, "absolute");
+      overlay.alt = selectedV.reference || "";
+
+      // On applique une position selon le groupe
+      switch (grpKey) {
+        case "bas":
+          // Positionné au niveau des jambes
+          overlay.classList.add("w-1/2", "left-1/2", "transform", "-translate-x-1/2", "bottom-0");
+          break;
+        case "haut":
+          // Positionné au niveau du torse
+          overlay.classList.add("w-1/2", "left-1/2", "transform", "-translate-x-1/2", "top-1/3");
+          break;
+        case "epaules":
+          // Positionné au niveau des épaules
+          overlay.classList.add("w-1/2", "left-1/2", "transform", "-translate-x-1/2", "top-[28%]");
+          break;
+        case "chapeau":
+          // Positionné sur la tête
+          overlay.classList.add("w-1/4", "left-1/2", "transform", "-translate-x-1/2", "top-0");
+          break;
+        case "lunettes":
+          // Positionné au niveau des yeux
+          overlay.classList.add("w-1/4", "left-1/2", "transform", "-translate-x-1/2", "top-[22%]");
+          break;
+        case "chaussures":
+          // Positionné au niveau des pieds
+          overlay.classList.add("w-1/3", "left-1/2", "transform", "-translate-x-1/2", "bottom-0");
+          break;
+        default:
+          break;
+      }
+
+      // On ajoute l'overlay au container principal
+      mixContainer.appendChild(overlay);
+    });
+  });
+
+  /* ------------------------------------------------------------ */
+  /* ------------ FIN DE LA PARTIE Mix & Match ----------------- */
+  /* ------------------------------------------------------------ */
 });

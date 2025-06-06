@@ -94,10 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <select id="editCategorie"
               class="w-full p-2 border rounded dark:bg-gray-800 dark:text-white">
               <option ${v.categorie==="Haut"       ? "selected":""}>Haut</option>
-              <option ${v.categorie==="Bas"        ? "selected":""}>Bas</option>
+              <option ${v.categorie==="Pantalon"        ? "selected":""}>Pantalon</option>
+              <option ${v.categorie==="Short"        ? "selected":""}>Short</option>
+              <option ${v.categorie==="Jupe"        ? "selected":""}>Jupe</option>
               <option ${v.categorie==="Robe"       ? "selected":""}>Robe</option>
+              <option ${v.categorie==="Veste"        ? "selected":""}>Veste</option>
+              <option ${v.categorie==="Manteau"        ? "selected":""}>Manteau</option>
               <option ${v.categorie==="Chaussures" ? "selected":""}>Chaussures</option>
-              <option ${v.categorie==="Accessoire" ? "selected":""}>Accessoire</option>
+              <option ${v.categorie==="Chapeau" ? "selected":""}>Chapeau</option>
+              <option ${v.categorie==="Lunettes"        ? "selected":""}>Lunettes</option>
             </select>
           </div>
           <div>
